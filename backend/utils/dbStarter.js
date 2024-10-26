@@ -1,4 +1,6 @@
-const pokemonDbStarter = async(db) => {
+const { db } = require('../models/pokemonsModel')
+
+const pokemonDbStarter = async() => {
     const pokeApiRawResponse = await fetch('https://pokeapi.co/api/v2/pokemon?limit=10&offset=0')
     const pokeApiResponse = await pokeApiRawResponse.json()
     for(let pokemon of pokeApiResponse.results) {
