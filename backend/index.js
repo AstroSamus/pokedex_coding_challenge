@@ -6,7 +6,7 @@ const PORT = 3000
 const app = express()
 app.use(express.json())
 
-app.use('/', pokedexRouter)
+app.use('/pokedex', pokedexRouter)
 
 db.count({}, async(error, count) => {
     if(error) console.log('an error ocurred when counting the db', error)
