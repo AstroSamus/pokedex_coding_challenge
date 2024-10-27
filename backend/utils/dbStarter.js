@@ -10,6 +10,7 @@ const pokemonDbStarter = async() => {
         const newDoc = {
             name: pokemonDataResponse.name,
             image: pokemonDataResponse.sprites.front_default,
+            favorite: false
         }
     
         pokemonDB.insert(newDoc, (err) => {
