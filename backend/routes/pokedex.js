@@ -5,7 +5,7 @@
 
 const express = require('express')
 const router = express.Router()
-const { db } = require('../models/pokemonsModel')
+const { pokemonDB } = require('../models/pokemonsModel')
 
 
 /**
@@ -17,7 +17,7 @@ const { db } = require('../models/pokemonsModel')
  */
 router.get('/', async (req, res) => {
     try {
-        db.find({}, (error, allPokemons) => {
+        pokemonDB.find({}, (error, allPokemons) => {
             if (error) return res.status(500).json({ message: error.message });
             res.json(allPokemons);
         })
@@ -35,7 +35,7 @@ router.get('/', async (req, res) => {
  */
 router.get('/:name', (req, res) => {
     try {
-        db.findOne({ name: req.params.name }, (error, pokemon) => {
+        pokemonDB.findOne({ name: req.params.name }, (error, pokemon) => {
             if (error) return res.status(500).json({ message: error.message })
             if (!pokemon) return res.status(404).json({ message: 'No pokemon with that name' })
             res.json(pokemon)

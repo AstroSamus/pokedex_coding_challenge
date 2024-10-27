@@ -1,4 +1,4 @@
-const { db } = require('../models/pokemonsModel')
+const { pokemonDB } = require('../models/pokemonsModel')
 
 const pokemonDbStarter = async() => {
     const pokeApiRawResponse = await fetch('https://pokeapi.co/api/v2/pokemon?limit=10&offset=0')
@@ -12,7 +12,7 @@ const pokemonDbStarter = async() => {
             image: pokemonDataResponse.sprites.front_default,
         }
     
-        db.insert(newDoc, (err) => {
+        pokemonDB.insert(newDoc, (err) => {
             if (err) console.error('error when inserting the new document', err)
         })
     }
