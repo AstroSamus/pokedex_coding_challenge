@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import Pokedex from './components/Pokedex'
+import { Pokedex } from './components/Pokedex/Pokedex'
 import { getAllPokedexInfo } from './services/pokedexService'
 
 function App() {
