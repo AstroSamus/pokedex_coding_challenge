@@ -1,11 +1,13 @@
 const { pokemonDB } = require('./models/pokemonsModel.js')
 const { pokedexRouter } = require('./routes/pokedex.js')
+const cors = require('cors')
 const express = require('express')
 const PORT = 3000
 
 const app = express()
-app.use(express.json())
 
+app.use(cors())
+app.use(express.json())
 app.use('/pokedex', pokedexRouter)
 
 pokemonDB.count({}, async(error, count) => {
