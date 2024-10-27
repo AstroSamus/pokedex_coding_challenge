@@ -4,12 +4,14 @@ export const getPokemonByName = async(name) => {
     try {
         const rawPokemonInfo = await fetch(`${constants.devServer}/pokedex/${name}`)
         if (!rawPokemonInfo.ok) {
-            throw new Error(`Response status: ${rawPokemonInfo.status}`);
+            return { error: 'Unknown error' }
         }
         const pokemonInfo = await rawPokemonInfo.json()
-        return [pokemonInfo]
-    } catch (error) {
-        console.log(error)
+        return [pokemonInfo]   
+    }
+    catch(error) {
+        if(error === 'Response status: 404') return { error: 'No pokemons found' }
+        return { error: 'Generic error' }
     }
 }
 

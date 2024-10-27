@@ -5,6 +5,7 @@ import { getPokemonByName, getAllPokedexInfo } from "./Pokedex.service"
 export const Pokedex = () => {
     const [searchBar, setSearchBar] = useState('')
     const [pokedexData, setPokedexData] = useState([])
+    const [error, setError] = useState(false)
     useEffect(() => {
       getPokemonList()
     }, [])
@@ -15,15 +16,18 @@ export const Pokedex = () => {
 
     const onSearchPokmemon = async(e) => {
         e.preventDefault()
+        setError(false)
         if(!searchBar) {
             getPokemonList()
             return
         }
-            setPokedexData(await getPokemonByName(searchBar))
+        const getPokemonByNameResp =  await getPokemonByName(searchBar)
+        if(getPokemonByNameResp?.error) setError(true)
+        else setPokedexData(getPokemonByNameResp)
     }
 
     return (
-        <div>
+        <>
             <h1>My Pokedex</h1>
             <form onSubmit={onSearchPokmemon}>
                 Search a pokemon by name:<input 
@@ -31,7 +35,7 @@ export const Pokedex = () => {
                     value={searchBar}
                     onChange={(e) => setSearchBar(e.target.value)}/>
             </form>
-            <ul>
+            {error ? <h1>Error 404</h1> : <ul>
                 { pokedexData && pokedexData.map((pokemon) => (
                     <PokemonCard id={ pokemon._id }
                         key={ pokemon._id }  
@@ -39,7 +43,7 @@ export const Pokedex = () => {
                         name = { pokemon.name }
                         favorite = { pokemon.favorite }/>
                 ))}
-            </ul>
-        </div>
+            </ul>}
+        </>
     )
 }
