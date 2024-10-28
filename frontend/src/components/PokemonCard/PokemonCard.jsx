@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { StarIcon } from "../icons/StarIcon"
 import { updateFavoritePokemonStatus } from "./PokemonCard.service"
+import './PokemonCard.css'
 
 export const PokemonCard = ({ name, image, favorite, id }) => {
     const [isFavorite, setIsFavorite] = useState(favorite)
@@ -14,12 +15,14 @@ export const PokemonCard = ({ name, image, favorite, id }) => {
 
 
     return (
-        <li>
+        <div className="pokemonCard__container">
             <img src = {image} alt = {name} />
-            <span>{name}</span>
-            <button onClick = {onFavorite}>
-                <StarIcon isActive = {isFavorite} />
-            </button>
-        </li>
+            <div className="pokemonCard__informationContainer">
+                <span>{name}</span>
+                <button className="pokemonCard__favoriteButton" onClick = {onFavorite}>
+                    <StarIcon isActive = {isFavorite} />
+                </button>
+            </div>
+        </div>
     )
 }

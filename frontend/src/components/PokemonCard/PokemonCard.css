@@ -1,0 +1,15 @@
+.pokemonCard__container {
+    border: 1px solid black;
+    border-radius: 15px;
+    max-width: 80%;
+}
+
+.pokemonCard__favoriteButton {
+    background-color: transparent;
+    border: none;
+}
+
+.pokemonCard__informationContainer {
+    display: flex;
+    justify-content: center;
+}

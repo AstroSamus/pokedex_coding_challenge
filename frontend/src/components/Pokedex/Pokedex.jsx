@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { PokemonCard } from "../PokemonCard/PokemonCard"
 import { getPokemonByName, getAllPokedexInfo } from "./Pokedex.service"
+import './Pokedex.css'
 
 export const Pokedex = () => {
     const [searchBar, setSearchBar] = useState('')
@@ -46,7 +47,7 @@ export const Pokedex = () => {
             </form>
             {error ? <h2>Error 404</h2> : 
                 loading ? <h2> Loading </h2> :
-                <ul>
+                <div className="pokedex__pokemonDisplayer">
                 { pokedexData && pokedexData.map((pokemon) => (
                     <PokemonCard id={ pokemon._id }
                         key={ pokemon._id }  
@@ -54,7 +55,7 @@ export const Pokedex = () => {
                         name = { pokemon.name }
                         favorite = { pokemon.favorite }/>
                 ))}
-            </ul>}
+                </div>}
         </>
     )
 }
