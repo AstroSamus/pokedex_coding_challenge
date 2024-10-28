@@ -17,6 +17,7 @@ export const Pokedex = () => {
     const onSearchPokmemon = async(e) => {
         e.preventDefault()
         setError(false)
+        //if searchbar is empty lets return the full list of pokemons
         if(!searchBar) {
             getPokemonList()
             return
@@ -35,7 +36,7 @@ export const Pokedex = () => {
                     value={searchBar}
                     onChange={(e) => setSearchBar(e.target.value)}/>
             </form>
-            {error ? <h1>Error 404</h1> : <ul>
+            {error ? <h2>Error 404</h2> : <ul>
                 { pokedexData && pokedexData.map((pokemon) => (
                     <PokemonCard id={ pokemon._id }
                         key={ pokemon._id }  
