@@ -6,23 +6,31 @@ export const Pokedex = () => {
     const [searchBar, setSearchBar] = useState('')
     const [pokedexData, setPokedexData] = useState([])
     const [error, setError] = useState(false)
+    const [loading, setLoading] = useState(false)
     useEffect(() => {
-      getPokemonList()
+        getPokemonList()
     }, [])
   
     const getPokemonList = async() => {
-      setPokedexData(await getAllPokedexInfo())
+        setError(false)
+        setLoading(true)
+        const getAllPokedexInfoRes = await getAllPokedexInfo()
+        setLoading(false)
+        if(getAllPokedexInfoRes?.error) return setError(true)
+        setPokedexData(getAllPokedexInfoRes)
     }
 
     const onSearchPokmemon = async(e) => {
         e.preventDefault()
         setError(false)
+        setLoading(true)
         //if searchbar is empty lets return the full list of pokemons
         if(!searchBar) {
             getPokemonList()
             return
         }
         const getPokemonByNameResp =  await getPokemonByName(searchBar)
+        setLoading(false)
         if(getPokemonByNameResp?.error) setError(true)
         else setPokedexData(getPokemonByNameResp)
     }
@@ -36,7 +44,9 @@ export const Pokedex = () => {
                     value={searchBar}
                     onChange={(e) => setSearchBar(e.target.value)}/>
             </form>
-            {error ? <h2>Error 404</h2> : <ul>
+            {error ? <h2>Error 404</h2> : 
+                loading ? <h2> Loading </h2> :
+                <ul>
                 { pokedexData && pokedexData.map((pokemon) => (
                     <PokemonCard id={ pokemon._id }
                         key={ pokemon._id }  

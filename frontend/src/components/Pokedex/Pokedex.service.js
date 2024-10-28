@@ -3,9 +3,7 @@ import constants from '../../../constants.json'
 export const getPokemonByName = async(name) => {
     try {
         const rawPokemonInfo = await fetch(`${constants.devServer}/pokedex/${name}`)
-        if (!rawPokemonInfo.ok) {
-            return { error: 'Unknown error' }
-        }
+        if (!rawPokemonInfo.ok) return { error: 'Unknown error' }
         const pokemonInfo = await rawPokemonInfo.json()
         return [pokemonInfo]   
     }
@@ -26,6 +24,6 @@ export const getAllPokedexInfo = async() => {
         const pokedexInfo = await rawPokedexInfo.json()
         return pokedexInfo
     } catch (error) {
-        console.log(error)
+        return { error }
     }
 }
