@@ -1,7 +1,8 @@
 const { pokemonDB } = require('../models/pokemonsModel')
+const numberOfPokemonsToFetch = 1000
 
 const pokemonDbStarter = async() => {
-    const pokeApiRawResponse = await fetch('https://pokeapi.co/api/v2/pokemon?limit=10&offset=0')
+    const pokeApiRawResponse = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${numberOfPokemonsToFetch}&offset=0`)
     const pokeApiResponse = await pokeApiRawResponse.json()
     for(let pokemon of pokeApiResponse.results) {
         //individually fetch the information of every pokemon returned by the pokeApi
