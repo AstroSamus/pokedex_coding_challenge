@@ -6,10 +6,10 @@ export const updateFavoritePokemonStatus = async(pokemonId) => {
             method: 'PATCH',
         })
         if (!favPokemonRes.ok) {
-            throw new Error(`Response status: ${favPokemonRes.status}`);
+            return { error: favPokemonRes.status}
         }
         return await favPokemonRes.json()
     } catch (error) {
-        console.log(error)
+        return { error }
     }
 }

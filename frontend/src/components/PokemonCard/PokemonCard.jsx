@@ -5,9 +5,11 @@ import { updateFavoritePokemonStatus } from "./PokemonCard.service"
 export const PokemonCard = ({ name, image, favorite, id }) => {
     const [isFavorite, setIsFavorite] = useState(favorite)
 
-    const onFavorite = () => {
+    const onFavorite = async() => {
         setIsFavorite((prev) => !prev)
-        updateFavoritePokemonStatus(id)
+        const updateFavoritePokemonRes = await updateFavoritePokemonStatus(id)
+        //if there was an error, undo the favorite status to the previous one
+        if(updateFavoritePokemonRes?.error) setIsFavorite((prev) => !prev)
     }
 
 
